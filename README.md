@@ -1,59 +1,59 @@
-# � Agent Factory
+# 🏭 Agent Factory
 
-Crea agentes de IA dinámicamente usando **Microsoft Agent Framework (MAF)** con **Azure AI Foundry**.
+Dynamically create AI agents using **Microsoft Agent Framework (MAF)** with **Azure AI Foundry**.
 
-## 📋 Descripción
+## 📋 Description
 
-`agent_factory.py` es una fábrica de agentes que permite:
+`agent_factory.py` is an agent factory that enables:
 
-- ✅ Crear configuraciones de agentes personalizados
-- ✅ Listar agentes existentes en Azure AI Foundry
-- ✅ Listar herramientas MCP disponibles
-- ✅ Crear nuevos agentes en Azure AI Foundry con herramientas MCP
-- ✅ Chatear con agentes usando streaming
+- ✅ Create custom agent configurations
+- ✅ List existing agents in Azure AI Foundry
+- ✅ List available MCP tools
+- ✅ Create new agents in Azure AI Foundry with MCP tools
+- ✅ Chat with agents using streaming
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ```bash
-# Crear entorno virtual
+# Create virtual environment
 python -m venv .venv
 .venv\Scripts\activate  # Windows
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-## 🏛️ Arquitectura
+## 🏛️ Architecture
 
-El siguiente diagrama muestra la arquitectura de la solución:
+The following diagram shows the solution architecture:
 
 <p align="center">
   <img src="image.png" alt="Agent Factory Architecture Diagram" width="800"/>
 </p>
 
-**Componentes principales:**
-- **Agent Factory** - Orquesta la creación y gestión de agentes
-- **Azure AI Foundry** - Plataforma de hosting para agentes y modelos
-- **MCP Tools** - Herramientas conectadas vía Model Context Protocol
-- **FastAPI Portal** - Interfaz web para interactuar con los agentes
+**Main components:**
+- **Agent Factory** - Orchestrates agent creation and management
+- **Azure AI Foundry** - Hosting platform for agents and models
+- **MCP Tools** - Tools connected via Model Context Protocol
+- **FastAPI Portal** - Web interface to interact with agents
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-Crea un archivo `.env`:
+Create a `.env` file:
 
 ```env
-AZURE_AI_PROJECT_ENDPOINT=https://<tu-proyecto>.services.ai.azure.com/api/projects/<nombre>
+AZURE_AI_PROJECT_ENDPOINT=https://<your-project>.services.ai.azure.com/api/projects/<name>
 AZURE_AI_MODEL_DEPLOYMENT=gpt-4o
 ```
 
-Autentícate con Azure CLI:
+Authenticate with Azure CLI:
 ```bash
 az login
 ```
 
-## 📖 Uso
+## 📖 Usage
 
-### Inicializar la fábrica
+### Initialize the factory
 
 ```python
 from agent_factory import AgentFactory
@@ -64,20 +64,20 @@ factory = AgentFactory(
 )
 ```
 
-### Crear un agente local
+### Create a local agent
 
 ```python
 config = factory.create_agent_config(
-    name="AsistenteVentas",
-    description="Ayuda con consultas de ventas",
-    purpose="Responder preguntas sobre productos y precios",
-    personality="amigable y persuasivo",
-    capabilities=["Consultar catálogo", "Calcular descuentos"],
-    rules=["Siempre ofrecer alternativas", "Ser honesto con disponibilidad"]
+    name="SalesAssistant",
+    description="Helps with sales inquiries",
+    purpose="Answer questions about products and pricing",
+    personality="friendly and persuasive",
+    capabilities=["Query catalog", "Calculate discounts"],
+    rules=["Always offer alternatives", "Be honest about availability"]
 )
 ```
 
-### Listar agentes de Azure AI Foundry
+### List agents from Azure AI Foundry
 
 ```python
 agents = await factory.list_foundry_agents()
@@ -87,7 +87,7 @@ for agent in agents:
         print(f"  Tools: {agent.tool_types}")
 ```
 
-### Listar herramientas MCP disponibles
+### List available MCP tools
 
 ```python
 tools = await factory.list_foundry_tools()
@@ -95,55 +95,54 @@ for tool in tools:
     print(f"{tool.name}: {tool.target}")
 ```
 
-### Crear agente en Azure AI Foundry con MCP tools
+### Create agent in Azure AI Foundry with MCP tools
 
 ```python
 agent = await factory.create_foundry_agent(
-    name="MiAgente",
-    instructions="Eres un asistente útil...",
+    name="MyAgent",
+    instructions="You are a helpful assistant...",
     model="gpt-4o",
-    tool_names=["MicrosoftLearn5", "favorite-payment"]  # Nombres de conexiones MCP
+    tool_names=["MicrosoftLearn5", "favorite-payment"]  # MCP connection names
 )
-print(f"Agente creado: {agent.id}")
+print(f"Agent created: {agent.id}")
 ```
 
-### Chatear con un agente
+### Chat with an agent
 
 ```python
-async for chunk in factory.chat_with_foundry_agent(agent_id, "Hola!"):
+async for chunk in factory.chat_with_foundry_agent(agent_id, "Hello!"):
     print(chunk, end="", flush=True)
 ```
 
-## 🏗️ Estructura
+## 🏗️ Structure
 
 ```
 AgentFactory
-├── create_agent_config()      # Crear config local
-├── get_agent_config()         # Obtener config por ID
-├── list_agents()              # Listar configs locales
-├── list_foundry_agents()      # Listar agentes de Foundry
-├── list_foundry_tools()       # Listar herramientas MCP
-├── create_foundry_agent()     # Crear agente en Foundry
-├── chat_with_foundry_agent()  # Chat con agente Foundry
-└── chat_with_agent()          # Chat con agente local
+├── create_agent_config()      # Create local config
+├── get_agent_config()         # Get config by ID
+├── list_agents()              # List local configs
+├── list_foundry_agents()      # List Foundry agents
+├── list_foundry_tools()       # List MCP tools
+├── create_foundry_agent()     # Create agent in Foundry
+├── chat_with_foundry_agent()  # Chat with Foundry agent
+└── chat_with_agent()          # Chat with local agent
 ```
 
-## 📦 Dependencias
+## 📦 Dependencies
 
-| Paquete | Versión |
+| Package | Version |
 |---------|---------|
 | `agent-framework` | 1.0.0b260210 |
 | `agent-framework-azure-ai` | 1.0.0b260210 |
 | `azure-ai-projects` | >=2.0.0b2 |
 | `azure-identity` | latest |
 
-## 🌐 Portal Web
+## 🌐 Web Portal
 
-Ejecuta `app.py` para una interfaz web:
+Run `app.py` for a web interface:
 
 ```bash
 uvicorn app:app --reload --port 8000
 ```
 
-Abre http://localhost:8000 para crear y chatear con agentes visualmente.
-
+Open http://localhost:8000 to create and chat with agents visually.
