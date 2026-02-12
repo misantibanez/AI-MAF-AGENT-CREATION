@@ -1,0 +1,8 @@
+azure-ai-projects>=2.0.0b2
+agent-framework-azure-ai==1.0.0b260210
+agent-framework==1.0.0b260210
+azure-identity
+python-dotenv
+# Web Portal
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
