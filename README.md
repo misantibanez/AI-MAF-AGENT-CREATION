@@ -23,6 +23,20 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+## 🏛️ Arquitectura
+
+El siguiente diagrama muestra la arquitectura de la solución:
+
+<p align="center">
+  <img src="image.png" alt="Agent Factory Architecture Diagram" width="800"/>
+</p>
+
+**Componentes principales:**
+- **Agent Factory** - Orquesta la creación y gestión de agentes
+- **Azure AI Foundry** - Plataforma de hosting para agentes y modelos
+- **MCP Tools** - Herramientas conectadas vía Model Context Protocol
+- **FastAPI Portal** - Interfaz web para interactuar con los agentes
+
 ## ⚙️ Configuración
 
 Crea un archivo `.env`:
